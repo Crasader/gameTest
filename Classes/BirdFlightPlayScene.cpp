@@ -7,6 +7,8 @@
 //
 
 #include "BirdFlightPlayScene.h"
+#include "SimpleAudioEngine.h"
+#include "ui/CocosGUI.h"
 #include <iostream>
 
 USING_NS_CC;
@@ -28,7 +30,21 @@ bool BirdFlightPlayScene::init()
         return false;
     }
     
+    audio = CocosDenshion::SimpleAudioEngine::getInstance();
+    audio->preloadBackgroundMusic("BirdFlight/Assets/music_game.mp3");
+    audio->preloadBackgroundMusic("BirdFlight/Assets/music_gameover.mp3");
+    //audio->preloadBackgroundMusic("BirdFlight/Assets/music_home.mp3");
+    audio->preloadEffect("BirdFlight/Assets/sfx_hero_die.mp3");
+    audio->preloadEffect("BirdFlight/Assets/sfx_bullet_shot.wav");
+    audio->preloadEffect("BirdFlight/Assets/sfx_button_touch.wav");
+    audio->preloadEffect("BirdFlight/Assets/sfx_enemy_die.wav");
+    audio->preloadEffect("BirdFlight/Assets/sfx_enemy_hit.wav");
+    audio->preloadEffect("BirdFlight/Assets/sfx_get_coin.wav");
+    audio->preloadEffect("BirdFlight/Assets/sfx_meteor_appear.wav");
 
+    audio->playBackgroundMusic("BirdFlight/Assets/music_game.mp3", true);
+
+    
     visibleSize = Director::getInstance()->getVisibleSize();
     
     cache = SpriteFrameCache::getInstance();
@@ -36,16 +52,77 @@ bool BirdFlightPlayScene::init()
     
     preloadCoins();
     
-    redBird = getAnimation(RED_BIRD_FILENAME_FORMAT.c_str());
+    int scoreX = 200;
+    int distanceX = 400;
+    int coinX = 575;
+    int labelY = visibleSize.height-50;
+    int displayY = visibleSize.height-100;
+    const std::string fontType = "Arial";
+    int fontSize = 40;
+    cocos2d::Color3B fontColor = cocos2d::Color3B::WHITE;
+    
+    auto pauseButton = cocos2d::ui::Button::create("BirdFlight/Assets/button_pause.png", "BirdFlight/Assets/button_pause.png", "BirdFlight/Assets/button_pause.png");
+    pauseButton->setPosition(Vec2(70, visibleSize.height-75));
+    pauseButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
+        switch (type)
+        {
+            case ui::Widget::TouchEventType::BEGAN:
+                break;
+            case ui::Widget::TouchEventType::ENDED:
+                std::cout << "Pause 1 clicked" << std::endl;
+                pauseGame();
+                break;
+            default:
+                break;
+        }
+    });
+    
+    this->addChild(pauseButton, 10);
+
+
+    
+    auto scoreLabel = Label::createWithSystemFont("SCORE", fontType, fontSize);
+    scoreLabel->setColor(fontColor);
+    scoreLabel->setPosition(Vec2(scoreX, labelY));
+    scoreLabel->enableOutline(Color4B::WHITE, 1);
+    scoreDisplay = Label::createWithSystemFont("0", fontType, fontSize);
+    scoreDisplay->setColor(fontColor);
+    scoreDisplay->setPosition(Vec2(scoreX, displayY));
+    scoreDisplay->enableOutline(Color4B::WHITE, 1);
+    
+    auto distanceLabel = Label::createWithSystemFont("DISTANCE", fontType, fontSize);
+    distanceLabel->setColor(fontColor);
+    distanceLabel->setPosition(Vec2(distanceX, labelY));
+    distanceLabel->enableOutline(Color4B::WHITE, 1);
+    distanceDisplay = Label::createWithSystemFont("0", fontType, fontSize);
+    distanceDisplay->setColor(fontColor);
+    distanceDisplay->setPosition(Vec2(distanceX, displayY));
+    distanceDisplay->enableOutline(Color4B::WHITE, 1);
+    
+    auto coinLabel = Label::createWithSystemFont("COIN", fontType, fontSize);
+    coinLabel->setColor(fontColor);
+    coinLabel->setPosition(Vec2(coinX, labelY));
+    coinLabel->enableOutline(Color4B::WHITE, 1);
+    coinDisplay = Label::createWithSystemFont("0", fontType, fontSize);
+    coinDisplay->setColor(fontColor);
+    coinDisplay->setPosition(Vec2(coinX, displayY));
+    coinDisplay->enableOutline(Color4B::WHITE, 1);
+    
+    this->addChild(scoreLabel, 10);
+    this->addChild(scoreDisplay, 10);
+    this->addChild(distanceLabel, 10);
+    this->addChild(distanceDisplay, 10);
+    this->addChild(coinLabel, 10);
+    this->addChild(coinDisplay, 10);
+    
+    
+    redBird = getAnimation(RED_BIRD_FILENAME_FORMAT.c_str(), true, 6, visibleSize.width/2, 0);
     redBird->setAnchorPoint(Vec2(0.5,0));
-    redBird->setPosition(Vec2(visibleSize.width/2, 0));
     redBird->setTag(RED_BIRD_SEED);
     redBird->getPhysicsBody()->setCollisionBitmask(HERO_CATEGORY);
     redBird->getPhysicsBody()->setCategoryBitmask(HERO_CATEGORY);
     redBird->getPhysicsBody()->setContactTestBitmask(true);
     redBird->getPhysicsBody()->setGravityEnable(false);
-    
-    
     
     runBackground();
     this->schedule(cocos2d::SEL_SCHEDULE(&BirdFlightPlayScene::bulletSmallMovement), 0.01f, kRepeatForever , 0);
@@ -72,6 +149,10 @@ bool BirdFlightPlayScene::init()
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
     return true;
+}
+
+void BirdFlightPlayScene::restartGame(){
+    Director::getInstance()->replaceScene(createScene());
 }
 
 void BirdFlightPlayScene::createFormation(){
@@ -142,7 +223,7 @@ Sprite* BirdFlightPlayScene::getEnemyBird(int seed){
     if(seed == YELLOW_BIRD_SEED ){
         enemy = findAvailableSprite(vectorYellowBirds);
         if(enemy == nullptr){
-            enemy = getAnimation(YELLOW_BIRD_FILENAME_FORMAT.c_str());
+            enemy = getAnimation(YELLOW_BIRD_FILENAME_FORMAT.c_str(), true, 6, -1000, -1000);
             enemy->setAnchorPoint(Vec2(0,0));
             enemy->setTag(YELLOW_BIRD_SEED);
             vectorYellowBirds.push_back(enemy);
@@ -150,7 +231,7 @@ Sprite* BirdFlightPlayScene::getEnemyBird(int seed){
     } else if (seed == PURPLE_BIRD_SEED){
         enemy = findAvailableSprite(vectorPurpleBirds);
         if(enemy == nullptr){
-            enemy = getAnimation(PURPLE_BIRD_FILENAME_FORMAT.c_str());
+            enemy = getAnimation(PURPLE_BIRD_FILENAME_FORMAT.c_str(), true, 6, -1000, -1000);
             enemy->setAnchorPoint(Vec2(0,0));
             enemy->setTag(PURPLE_BIRD_SEED);
             vectorPurpleBirds.push_back(enemy);
@@ -158,7 +239,7 @@ Sprite* BirdFlightPlayScene::getEnemyBird(int seed){
     } else if (seed == BLACK_BIRD_SEED) {
         enemy = findAvailableSprite(vectorBlackBirds);
         if(enemy == nullptr){
-            enemy = getAnimation(BLACK_BIRD_FILENAME_FORMAT.c_str());
+            enemy = getAnimation(BLACK_BIRD_FILENAME_FORMAT.c_str(), true, 6, -1000, -1000);
             enemy->setAnchorPoint(Vec2(0,0));
             enemy->setTag(BLACK_BIRD_SEED);
             vectorBlackBirds.push_back(enemy);
@@ -182,38 +263,68 @@ Sprite* BirdFlightPlayScene::findAvailableSprite(std::vector<Sprite*> vectorSpri
     return nullptr;
 }
 
-Sprite* BirdFlightPlayScene::getAnimation(const char* filenameFormat){
-    Vector<SpriteFrame*> animFrames(6);
+void BirdFlightPlayScene::createExplosion(PhysicsBody* body){
+    auto explosion = findAvailableSprite(vectorExplosions);
+    int x = body->getOwner()->getPosition().x;
+    int y = body->getOwner()->getPosition().y + body->getOwner()->getBoundingBox().size.height/2;
+    if( body->getOwner()->getAnchorPoint().x == 0){
+        x = x + body->getOwner()->getBoundingBox().size.width/2;
+    }
+    if(explosion == nullptr){
+        explosion = getAnimation(DIE_FILENAME.c_str(), true, 5, x, y);
+        explosion->setAnchorPoint(Vec2(0.5,0.5));
+        vectorExplosions.push_back(explosion);
+    }
+    explosion->setPosition(Vec2(x, y));
+    auto delay = DelayTime::create(0.2f);
+    auto moveTo = MoveTo::create(0, Vec2(-1000,-1000));
+    auto sequence = Sequence::create(delay, moveTo, NULL);
+    explosion->runAction(sequence);
+    //explosion->setPosition(Vec2(body->getOwner()->getPosition().x + body->getOwner()->getBoundingBox().size.width/2, body->getOwner()->getPosition().y + body->getOwner()->getBoundingBox().size.height/2));
+    //explosion->setPosition(Vec2(body->getOwner()->getPosition().x, body->getOwner()->getPosition().y));
+    //explosion->autorelease();
+    //createCoin(nodeB->getOwner()->getPosition().x + nodeB->getOwner()->getBoundingBox().size.width/2, nodeB->getOwner()->getPosition().y + nodeB->getOwner()->getBoundingBox().size.height/2);
+}
+
+Sprite* BirdFlightPlayScene::getAnimation(const char* filenameFormat, bool isForever, int numberOfFrames, int x, int y){
+    Vector<SpriteFrame*> animFrames(numberOfFrames);
     char str[100] = {0};
-    for(int i = 1; i < 6; i++)
+    for(int i = 1; i < numberOfFrames; i++)
     {
         sprintf(str, filenameFormat, i);
         SpriteFrame* frame = cache->getSpriteFrameByName( str );
         animFrames.pushBack(frame);
     }
-    for(int i = 6; i > 1 ; i--)
-    {
-        sprintf(str, filenameFormat, i);
-        SpriteFrame* frame = cache->getSpriteFrameByName( str );
-        animFrames.pushBack(frame);
+    if(isForever){
+        for(int i = numberOfFrames; i > 1 ; i--)
+        {
+            sprintf(str, filenameFormat, i);
+            SpriteFrame* frame = cache->getSpriteFrameByName( str );
+            animFrames.pushBack(frame);
+        }
     }
     
     auto animation = Animation::createWithSpriteFrames(animFrames, 0.075f);
     auto animate = Animate::create(animation);
     
-    Sprite* animatedRedBird = Sprite::createWithSpriteFrameName("red_bird_fly_01.png");
-    animatedRedBird->setScale(SCALE_TO_SIZE);
-    this->addChild(animatedRedBird,4);
+    sprintf(str, filenameFormat, 1);
+    Sprite* sprite = Sprite::createWithSpriteFrameName(str);
+    sprite->setPosition(Vec2(x, y));
+    sprite->setScale(SCALE_TO_SIZE);
+    this->addChild(sprite,4);
 
-    animatedRedBird->runAction(RepeatForever::create(animate));
+    if (isForever){
+        sprite->runAction(RepeatForever::create(animate));
+        auto physicsBody = PhysicsBody::createBox(Size(sprite->getBoundingBox().size.width , sprite->getBoundingBox().size.height ), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+        physicsBody->setDynamic(false);
+        //set the body isn't affected by the physics world's gravitational force
+        physicsBody->setGravityEnable(false);
+        sprite->addComponent(physicsBody);
+    } else {
+        repeatOnce = Repeat::create(animate, 1);
+    }
     
-    auto physicsBody = PhysicsBody::createBox(Size(animatedRedBird->getBoundingBox().size.width , animatedRedBird->getBoundingBox().size.height ), PhysicsMaterial(0.1f, 1.0f, 0.0f));
-    physicsBody->setDynamic(false);
-    //set the body isn't affected by the physics world's gravitational force
-    physicsBody->setGravityEnable(false);
-    animatedRedBird->addComponent(physicsBody);
-    
-    return animatedRedBird;
+    return sprite;
 }
 
 bool BirdFlightPlayScene::onContactBegin(PhysicsContact& contact)
@@ -224,11 +335,17 @@ bool BirdFlightPlayScene::onContactBegin(PhysicsContact& contact)
     int tagA = nodeA->getOwner()->getTag();
     int tagB = nodeB->getOwner()->getTag();
     
+    const Vec2* contactPoint = contact.getContactData()->points;
+    
     if (nodeA && nodeB)
     {
         // enemy or meteor contact with hero
         if ( (tagA == RED_BIRD_SEED && (tagB == YELLOW_BIRD_SEED || tagB == PURPLE_BIRD_SEED || tagB == BLACK_BIRD_SEED || tagB == METEOR)) || (tagB == RED_BIRD_SEED && (tagA == YELLOW_BIRD_SEED || tagA == PURPLE_BIRD_SEED || tagA == BLACK_BIRD_SEED || tagA == METEOR)) )
         {
+            createExplosion(nodeA);
+            createExplosion(nodeB);
+            audio->playEffect("BirdFlight/Assets/sfx_hero_die.mp3");
+            audio->playEffect("BirdFlight/Assets/sfx_enemy_die.wav");
             gameOver();
         }
         // bullet contact with enemy
@@ -238,6 +355,7 @@ bool BirdFlightPlayScene::onContactBegin(PhysicsContact& contact)
             createCoin(nodeB->getOwner()->getPosition().x + nodeB->getOwner()->getBoundingBox().size.width/2, nodeB->getOwner()->getPosition().y + nodeB->getOwner()->getBoundingBox().size.height/2);
             bulletUsed(nodeA);
             enemyDies(nodeB);
+            audio->playEffect("BirdFlight/Assets/sfx_enemy_die.wav");
         }
         else if((tagB == BULLET_SMALL || tagB == BULLET_BIG) && (tagA == YELLOW_BIRD_SEED || tagA == PURPLE_BIRD_SEED || tagA == BLACK_BIRD_SEED))
         {
@@ -245,13 +363,18 @@ bool BirdFlightPlayScene::onContactBegin(PhysicsContact& contact)
             createCoin(nodeA->getOwner()->getPosition().x + nodeA->getOwner()->getBoundingBox().size.width/2, nodeA->getOwner()->getPosition().y + nodeA->getOwner()->getBoundingBox().size.height/2);
             bulletUsed(nodeB);
             enemyDies(nodeA);
+            audio->playEffect("BirdFlight/Assets/sfx_enemy_die.wav");
         }
         else if (tagA == RED_BIRD_SEED && tagB == COIN)
         {
+            runGetCoinGfx(contactPoint);
+            audio->playEffect("BirdFlight/Assets/sfx_get_coin.wav");
             coinUsed(nodeB);
         }
         else if (tagB == RED_BIRD_SEED && tagA == COIN)
         {
+            runGetCoinGfx(contactPoint);
+            audio->playEffect("BirdFlight/Assets/sfx_get_coin.wav");
             coinUsed(nodeA);
         }
     }
@@ -259,12 +382,32 @@ bool BirdFlightPlayScene::onContactBegin(PhysicsContact& contact)
     //bodies can collide
     return true;
 }
-                 
+
+void BirdFlightPlayScene::runGetCoinGfx(const Vec2* effectPoint){
+    auto emitter = ParticleSun::create();
+    emitter->setPosition(Vec2(effectPoint->x,effectPoint->y));
+    // set the duration
+    emitter->setDuration(0.1f);
+    // radius mode
+    //emitter->setEmitterMode(ParticleSystem::Mode::RADIUS);
+    // radius mode: 100 pixels from center
+    emitter->setStartSize(100);
+    emitter->setStartSizeVar(0);
+    emitter->setEndSize(ParticleSystem::START_RADIUS_EQUAL_TO_END_RADIUS);
+    emitter->setEndSizeVar(0);    // not used when start == end
+    emitter->setAutoRemoveOnFinish(true);
+    addChild(emitter, 3);
+}
+
 void BirdFlightPlayScene::coinUsed(PhysicsBody* body){
     for(int i = 0; i < vectorCoins.size(); i++){
         if(body == vectorCoins.at(i)->getPhysicsBody()){
             spriteConsumed(vectorCoins.at(i));
             //vectorCoins.erase(vectorCoins.begin() + i);
+            coin = coin + 1;
+            char coinText[10] = {0};
+            sprintf(coinText, "%d", coin);
+            coinDisplay->setString(coinText);
         }
     }
 }
@@ -295,8 +438,15 @@ void BirdFlightPlayScene::resumeGame(){
 void BirdFlightPlayScene::enemyDies(PhysicsBody* body){
     for(int i = 0; i < birdFormations.size(); i++){
         if(body == birdFormations.at(i)->getPhysicsBody()){
+            createExplosion(body);
             spriteConsumed(birdFormations.at(i));
             birdFormations.erase(birdFormations.begin() + i);
+            // score = score + body->getOwner()->getTag() * 10;
+            score = score + 10;
+            char scoreText[10] = {0};
+            sprintf(scoreText, "%d", score);
+            scoreDisplay->setString(scoreText);
+            break;
         }
     }
 }
@@ -335,7 +485,7 @@ Sprite* BirdFlightPlayScene::createCoin(int x, int y){
     //coin->runAction(EaseOut::create(MoveBy::create(0.1f, Vec2(200,-200)), 5.0f));
     auto move = MoveBy::create(2, Vec2(0, 100)); //visibleSize.height - coin->getContentSize().height));
     int random = cocos2d::random((-x+200)/2, (static_cast<int>(visibleSize.width)-x-200)/2);
-    std::cout << "x: " << x << " random: " << random << " result: " << x+random << "\n";
+    //std::cout << "x: " << x << " random: " << random << " result: " << x+random << "\n";
     auto move2 = MoveBy::create(2, Vec2(random, 0));
     // create a BounceIn Ease Action
     auto move_ease_in = (EaseBounceIn::create(move))->reverse();
@@ -513,10 +663,15 @@ void BirdFlightPlayScene::bulletSmallMovement()
             setBulletSmallStartingPosition(lastBullet);
         }
     }
+    distance = distance + 1;
+    char distanceText[10] = {0};
+    sprintf(distanceText, "%d", distance);
+    distanceDisplay->setString(distanceText);
 }
 
 void BirdFlightPlayScene::setBulletSmallStartingPosition(Sprite* bulletSmall){
     bulletSmall->setPosition(Vec2(redBird->getPosition().x, redBird->getPosition().y + redBird->getBoundingBox().size.height - bulletSmall->getBoundingBox().size.height));
+    audio->playEffect("BirdFlight/Assets/sfx_bullet_shot.wav");
 }
 
 void BirdFlightPlayScene::spriteConsumed(Sprite* sprite){

@@ -20,7 +20,7 @@ Scene* BirdFlightPlayScene::createScene()
     return playScene;
 }
 
-// just testing 2nd test
+// just testing 2nd test 3rd test
 bool BirdFlightPlayScene::init()
 {
     if ( !Layer::init() )

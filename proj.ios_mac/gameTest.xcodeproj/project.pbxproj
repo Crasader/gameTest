@@ -23,8 +23,6 @@
 		46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
-		46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
-		46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -68,8 +66,13 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
-		E1F20FFC1D34974700208DCD /* GraphicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1F20FFB1D34974700208DCD /* GraphicsScene.cpp */; };
-		E1F20FFD1D34974700208DCD /* GraphicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E1F20FFB1D34974700208DCD /* GraphicsScene.cpp */; };
+		E100634A1D38968F0008B913 /* Flurry iPhone SDK viPhone SDK 7 in Resources */ = {isa = PBXBuildFile; fileRef = E10063491D38968F0008B913 /* Flurry iPhone SDK viPhone SDK 7 */; };
+		E10063511D389D2B0008B913 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10063501D389D2B0008B913 /* Security.framework */; };
+		E10063531D389D360008B913 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10063521D389D360008B913 /* SystemConfiguration.framework */; };
+		E100639A1D38A1D80008B913 /* BirdFlight in Resources */ = {isa = PBXBuildFile; fileRef = E10063991D38A1D80008B913 /* BirdFlight */; };
+		E10063A31D38A2900008B913 /* BirdFlightMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10063A21D38A2900008B913 /* BirdFlightMenuScene.cpp */; };
+		E10063A51D38D3A80008B913 /* BirdFlightPlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E10063A41D38D3A80008B913 /* BirdFlightPlayScene.cpp */; };
+		E10063A91D38E3B50008B913 /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = E10063A81D38E3B50008B913 /* Classes */; };
 		E1F210001D34ABC900208DCD /* autobot.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F20FFF1D34ABC900208DCD /* autobot.png */; };
 		E1F210011D34ABC900208DCD /* autobot.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F20FFF1D34ABC900208DCD /* autobot.png */; };
 		E1F210041D34ABD800208DCD /* decepticon.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F210031D34ABD800208DCD /* decepticon.png */; };
@@ -130,8 +133,6 @@
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorldScene.cpp; sourceTree = "<group>"; };
-		46880B8719C43A87006E1F66 /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -176,8 +177,15 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
-		E1F20FFA1D3496BB00208DCD /* GraphicsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphicsScene.h; sourceTree = "<group>"; };
-		E1F20FFB1D34974700208DCD /* GraphicsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphicsScene.cpp; sourceTree = "<group>"; };
+		E10063491D38968F0008B913 /* Flurry iPhone SDK viPhone SDK 7 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Flurry iPhone SDK viPhone SDK 7"; path = "../../../Flurry iPhone SDK viPhone SDK 7"; sourceTree = "<group>"; };
+		E10063501D389D2B0008B913 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		E10063521D389D360008B913 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		E10063991D38A1D80008B913 /* BirdFlight */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BirdFlight; path = ../../../../../../Users/rudytan/Downloads/BirdFlight; sourceTree = "<group>"; };
+		E100639E1D38A2470008B913 /* BirdFlightMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirdFlightMenuScene.h; sourceTree = "<group>"; };
+		E10063A21D38A2900008B913 /* BirdFlightMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BirdFlightMenuScene.cpp; sourceTree = "<group>"; };
+		E10063A41D38D3A80008B913 /* BirdFlightPlayScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BirdFlightPlayScene.cpp; sourceTree = "<group>"; };
+		E10063A61D38D3B90008B913 /* BirdFlightPlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BirdFlightPlayScene.h; sourceTree = "<group>"; };
+		E10063A81D38E3B50008B913 /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Classes; path = "../../../../cocos2d-x-3.12/tests/cpp-tests/Classes"; sourceTree = "<group>"; };
 		E1F20FFF1D34ABC900208DCD /* autobot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = autobot.png; sourceTree = "<group>"; };
 		E1F210031D34ABD800208DCD /* decepticon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = decepticon.png; sourceTree = "<group>"; };
 		ED545A7B1B68A1F400C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
@@ -189,6 +197,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E10063531D389D360008B913 /* SystemConfiguration.framework in Frameworks */,
+				E10063511D389D2B0008B913 /* Security.framework in Frameworks */,
 				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -265,6 +275,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				E10063491D38968F0008B913 /* Flurry iPhone SDK viPhone SDK 7 */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
@@ -279,6 +290,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E10063521D389D360008B913 /* SystemConfiguration.framework */,
+				E10063501D389D2B0008B913 /* Security.framework */,
 				294D0D631D0D56D500F7F5D4 /* CoreText.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
@@ -306,6 +319,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E10063991D38A1D80008B913 /* BirdFlight */,
 				E1F210031D34ABD800208DCD /* decepticon.png */,
 				E1F20FFF1D34ABC900208DCD /* autobot.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
@@ -321,12 +335,13 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E1F20FFA1D3496BB00208DCD /* GraphicsScene.h */,
+				E10063A81D38E3B50008B913 /* Classes */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
-				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
-				E1F20FFB1D34974700208DCD /* GraphicsScene.cpp */,
+				E100639E1D38A2470008B913 /* BirdFlightMenuScene.h */,
+				E10063A21D38A2900008B913 /* BirdFlightMenuScene.cpp */,
+				E10063A41D38D3A80008B913 /* BirdFlightPlayScene.cpp */,
+				E10063A61D38D3B90008B913 /* BirdFlightPlayScene.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -490,6 +505,7 @@
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				E10063A91D38E3B50008B913 /* Classes in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -497,11 +513,13 @@
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
+				E100634A1D38968F0008B913 /* Flurry iPhone SDK viPhone SDK 7 in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				E1F210001D34ABC900208DCD /* autobot.png in Resources */,
+				E100639A1D38A1D80008B913 /* BirdFlight in Resources */,
 				E1F210041D34ABD800208DCD /* decepticon.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */,
@@ -532,11 +550,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				E10063A51D38D3A80008B913 /* BirdFlightPlayScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
-				E1F20FFC1D34974700208DCD /* GraphicsScene.cpp in Sources */,
+				E10063A31D38A2900008B913 /* BirdFlightMenuScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,9 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				E1F20FFD1D34974700208DCD /* GraphicsScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

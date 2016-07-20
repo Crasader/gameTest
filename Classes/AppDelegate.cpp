@@ -1,6 +1,8 @@
 #include "AppDelegate.h"
-#include "GraphicsScene.h"
-#include "HelloWorldScene.h"
+//#include "GraphicsScene.h"
+//#include "HelloWorldScene.h"
+#include "BirdFlightMenuScene.h"
+#include "BirdFlightPlayScene.h"
 
 USING_NS_CC;
 
@@ -26,12 +28,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("Hello World");
-        glview->setFrameSize(640, 480);
+        glview = GLViewImpl::create("Bird Flight");
+        glview->setFrameSize(640, 1136);
         director->setOpenGLView(glview);
     }
     
-    auto scene = GraphicsScene::createScene();
+    auto scene = BirdFlightPlayScene::createScene();
     director->runWithScene(scene);
     
     return true;

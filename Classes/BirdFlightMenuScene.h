@@ -6,8 +6,15 @@
 //
 //
 
-#ifndef BirdFlightMenuScene_h
-#define BirdFlightMenuScene_h
+#pragma once
 
+#include "cocos2d.h"
 
-#endif /* BirdFlightMenuScene_h */
+class BirdFlightMenuScene : public cocos2d::Layer
+{
+public:
+    static cocos2d::Scene* createScene();
+    virtual bool init();
+    CREATE_FUNC(BirdFlightMenuScene);
+    void menuPlay(Ref* pSender);
+};
